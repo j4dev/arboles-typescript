@@ -70,6 +70,29 @@ p     */
         */
         if(nodo.Hijo == null)
         {
+            let temp: clsNodo = new clsNodo;
+
+            temp.Dato = dato;
+
+            nodo.Hijo = temp;
+
+            return temp;
+        }else{//ya existe un hijo y se inserta como hermano
+            this._Trabajo = nodo.Hijo;
+
+            //Recorrer el arbol hasta el ultimo hermano
+            while (this._Trabajo.Hermano != null) {
+                this._Trabajo = this._Trabajo.Hermano;
+            }
+
+            let temp: clsNodo = new clsNodo();
+
+            temp.Dato = dato;
+
+            //Asignar el temp al ultimo hermano
+            this._Trabajo.Hermano = temp;
+
+            return temp;
 
         }
     }
