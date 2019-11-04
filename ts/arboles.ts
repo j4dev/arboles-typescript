@@ -118,14 +118,14 @@ p     */
             this.i--;
         }
 
-        //Si existen hermanos seran procesados
+        //Si existen hermanos seran procesados ..
         if (nodo.Hermano != null) {
             this.transversaPre(nodo.Hermano);
         }
     }
 
     /**
-     * buscarNodo  
+     * buscarNodos 
      */
     public buscarNodo(dato:string, nodo:clsNodo):clsNodo {
         var encontrado:clsNodo = null;
