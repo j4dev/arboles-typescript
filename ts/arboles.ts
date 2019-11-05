@@ -90,6 +90,7 @@ class clsArbol {
         if (dato.length > nodo.dato.length) {
             nodo.der = this.insertarNodo(dato,nodo.der);
         }
+        // Cuando las dimensiones de los string es igual
 
         return nodo;
 
@@ -201,22 +202,46 @@ class clsArbol {
 var arbol = new clsArbol();
 var raiz:clsNodo = arbol.insertarNodo("raiz",null);
 
-/*function listar() {
-    arbol.listar();
-}*/
 function guardarArbol() {
     var dato = (<HTMLInputElement>document.getElementById("insertar")).value.toString();
-    arbol.insertarNodo(dato,raiz);
-    console.log(raiz);
     
+    if(arbol.insertarNodo(dato,raiz) != null){
+        var listado = <HTMLElement> document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify(raiz,undefined, 4);
+        (<HTMLInputElement>document.getElementById("insertar")).value = "";
+    }else{
+        console.log("jola");
+        
+        var listado = <HTMLElement> document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify("Elemento ya existente",undefined, 4);
+        (<HTMLInputElement>document.getElementById("insertar")).value = "";
+    }
+
+
 }
 function buscarNodo() {
     var nodoBuscado = (<HTMLInputElement>document.getElementById("buscar")).value.toString();
     arbol.buscarNodo(nodoBuscado,raiz);
+    console.log(arbol);
     console.log(raiz);
+    
+    var listado = <HTMLElement> document.getElementById("json-arbol");
+    listado.innerHTML = JSON.stringify(raiz,undefined, 4);
+    (<HTMLInputElement>document.getElementById("buscar")).value = "";
+
 }
+
 function eliminarNodo() {
     var nodoEliminado = (<HTMLInputElement>document.getElementById("borrar")).value.toString();
-    arbol.eliminarNodo(raiz,nodoEliminado);
-    console.log(raiz);
+    if(arbol.eliminarNodo(raiz,nodoEliminado) != null){
+        var listado = <HTMLElement> document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify(raiz,undefined, 4);
+        (<HTMLInputElement>document.getElementById("borrar")).value = "";
+    }else{
+        var listado = <HTMLElement> document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify("Nodo no encontrado",undefined, 4);
+        (<HTMLInputElement>document.getElementById("borrar")).value = "";
+    }
+
+
 }

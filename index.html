@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Árboles</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <h1>Árboles</h1>
@@ -16,13 +17,10 @@
         <input type="text" id="buscar" placeholder="Buscar"/>
         <input type="button" value="Buscar" onClick="buscarNodo()"/>
 
-        <input type="button" value="Ver lista" onClick="listar()"/>
     </form>
     
     <h2 id="texto" >Árbol:</h2>
-    <ul id="listado"/>
-
-    </ul>
+    <textarea name="" id="json-arbol" cols="10" rows="10"></textarea>
     <!--TypeScript  compilado a javascript-->
     <script type="text/javascript" src="dist/arboles.js"></script>
 </body>

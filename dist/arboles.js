@@ -74,6 +74,7 @@ class clsArbol {
         if (dato.length > nodo.dato.length) {
             nodo.der = this.insertarNodo(dato, nodo.der);
         }
+        // Cuando las dimensiones de los string es igual
         return nodo;
     }
     /**
@@ -172,22 +173,40 @@ class clsArbol {
 }
 var arbol = new clsArbol();
 var raiz = arbol.insertarNodo("raiz", null);
-/*function listar() {
-    arbol.listar();
-}*/
 function guardarArbol() {
     var dato = document.getElementById("insertar").value.toString();
-    arbol.insertarNodo(dato, raiz);
-    console.log(raiz);
+    if (arbol.insertarNodo(dato, raiz) != null) {
+        var listado = document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify(raiz, undefined, 4);
+        document.getElementById("insertar").value = "";
+    }
+    else {
+        console.log("jola");
+        var listado = document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify("Elemento ya existente", undefined, 4);
+        document.getElementById("insertar").value = "";
+    }
 }
 function buscarNodo() {
     var nodoBuscado = document.getElementById("buscar").value.toString();
     arbol.buscarNodo(nodoBuscado, raiz);
+    console.log(arbol);
     console.log(raiz);
+    var listado = document.getElementById("json-arbol");
+    listado.innerHTML = JSON.stringify(raiz, undefined, 4);
+    document.getElementById("buscar").value = "";
 }
 function eliminarNodo() {
     var nodoEliminado = document.getElementById("borrar").value.toString();
-    arbol.eliminarNodo(raiz, nodoEliminado);
-    console.log(raiz);
+    if (arbol.eliminarNodo(raiz, nodoEliminado) != null) {
+        var listado = document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify(raiz, undefined, 4);
+        document.getElementById("borrar").value = "";
+    }
+    else {
+        var listado = document.getElementById("json-arbol");
+        listado.innerHTML = JSON.stringify("Nodo no encontrado", undefined, 4);
+        document.getElementById("borrar").value = "";
+    }
 }
 //# sourceMappingURL=arboles.js.map
