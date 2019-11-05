@@ -1,160 +1,133 @@
 class clsNodo {
-    private _Dato: string;
-    private _Hijo: clsNodo;
-    private _Hermano: clsNodo;
+    private _dato: string;
+    private _izq: clsNodo;
+    private _der: clsNodo;
 
-    public get Hermano(): clsNodo {
-        return this._Hermano;
+    public get der(): clsNodo {
+        return this._der;
     }
-    public set Hermano(value: clsNodo) {
-        this._Hermano = value;
+    public set der(value: clsNodo) {
+        this._der = value;
     }
-    public get Dato(): string {
-        return this._Dato;
+    public get izq(): clsNodo {
+        return this._izq;
     }
-    public set Dato(value: string) {
-        this._Dato = value;
+    public set izq(value: clsNodo) {
+        this._izq = value;
     }
-    public get Hijo(): clsNodo {
-        return this._Hijo;
+    
+    public get dato(): string {
+        return this._dato;
     }
-    public set Hijo(value: clsNodo) {
-        this._Hijo = value;
+    public set dato(value: string) {
+        this._dato = value;
     }
 
     /**
      * clsNodo
      */
     public clsNodo() {
-        this._Dato = "";
-        this._Hijo = null;
-        this._Hermano = null;
+        this._dato = "";
+        this._izq = null;
+        this._der = null;
     }
-    
+
 }
 
 class clsArbol {
-    private _Raiz: clsNodo;
-    private _Trabajo: clsNodo;
-    private i=0;
+    private _raiz: clsArbol;
+    private _trabajo: clsArbol;
+
+    private _i = 0;
+
+    public get i() {
+        return this._i;
+    }
+    public set i(value) {
+        this._i = value;
+    }
+
+    public get trabajo(): clsArbol {
+        return this._trabajo;
+    }
+    public set trabajo(value: clsArbol) {
+        this._trabajo = value;
+    }
+    
+    public get raiz(): clsArbol {
+        return this._raiz;
+    }
+    public set raiz(value: clsArbol) {
+        this._raiz = value;
+    }
+
 
     /**
      * clsArbol
      */
     public clsArbol() {
-        this._Raiz = new clsNodo();
+        this._raiz = null;
     }
 
     /**
      * insertarNodo
-p     */
-    public insertarNodo(dato:string, nodo:clsNodo):clsNodo {
+     */
+    public insertarNodo(dato:string,nodo:clsNodo): clsNodo {
+        let temp:clsNodo = null;
 
-        //Si no hay nodo donde insertar, tomamon como si fuera en la raiz
+        //Si no a quien insertar entonces
+        //se crea el nodo
         if (nodo == null) {
-            this._Raiz.Dato = dato;
-            this._Raiz.Dato = dato;
-
-            //No hay hijo
-            this._Raiz.Hijo = null;
-
-            //No hay hermano
-            this._Raiz.Hermano = null;
-
-            return this._Raiz;
-        }
-
-        /*
-        *Verificar si tiene hijo
-        *Insertar com hijo
-        */
-        if(nodo.Hijo == null)
-        {
-            let temp: clsNodo = new clsNodo;
-
-            temp.Dato = dato;
-
-            nodo.Hijo = temp;
-
-            return temp;
-        }else{//ya existe un hijo y se inserta como hermano
-            this._Trabajo = nodo.Hijo;
-
-            //Recorrer el arbol hasta el ultimo hermano
-            while (this._Trabajo.Hermano != null) {
-                this._Trabajo = this._Trabajo.Hermano;
-            }
-
-            let temp: clsNodo = new clsNodo();
-
-            temp.Dato = dato;
-
-            //Asignar el temp al ultimo hermano
-            this._Trabajo.Hermano = temp;
+            temp = new clsNodo;
+            temp.dato = dato;
 
             return temp;
         }
+
+        if (dato.length < nodo.dato.length) {
+            nodo.izq = this.insertarNodo(dato,nodo.izq);
+        }
+        if (dato.length > nodo.dato.length) {
+            nodo.der = this.insertarNodo(dato,nodo.der);
+        }
+
+        return nodo;
+
     }
 
     /**
-     * transversaPre
+     * buscarPadre 
      */
-    public transversaPre(nodo: clsNodo) {
-        let espacios = ""
-        var lista = "<li>Ábrol vacio</li>";
-        if (nodo == null) {
-            return lista;
-        }
-        for (let n = 0; n < this.i; n++) {
-            // El ciclo for solo se usa para dar espacios en la interfaz
-            espacios = espacios+"&nbsp";
-            lista = "<li>"+espacios+nodo.Dato+"</li>";
-        }
+    public buscarPadre (dato:string, nodo: clsNodo) {
+        let temp:clsNodo = null;
 
-        //Recorremos al hijo en transversa preorden
-        if (nodo.Hijo != null) {
-            this.i++;
-            this.transversaPre(nodo.Hijo);
-            this.i--;
+        if (nodo == null ) {
+            return null;
         }
-
-        //Si existen hermanos seran procesados ..
-        if (nodo.Hermano != null) {
-            this.transversaPre(nodo.Hermano);
+        
+        //verificacion si soy el padre
+        if (nodo.izq != null) {
+            if (nodo.izq.dato == dato) {
+                return nodo;
+            }
         }
-    }
-
-    /**
-     * buscarNodos 
-     */
-    public buscarNodo(dato:string, nodo:clsNodo):clsNodo {
-        var encontrado:clsNodo = null;
-
-        if (nodo == null) {
-            return encontrado;
-        }
-
-        if (nodo.Dato == dato) {
-            encontrado = nodo;
-            return encontrado;
-        }
-
-        //Buscamos en el hijo
-        if (nodo.Hijo != null) {
-            encontrado = this.buscarNodo(dato,nodo.Hijo);
-            if (encontrado != null) {
-                return encontrado;
+        if (nodo.der != null) {
+            if (nodo.der.dato == dato) {
+                return nodo;
             }
         }
 
-        //Buscamos en los hermanos
-        if (nodo.Hermano != null) {
-            encontrado = this.buscarNodo(dato, nodo.Hermano);
-            if (encontrado != null) {
-                return encontrado;
-            }
+        //Si existen nodos a la izquierda
+        if (nodo.izq != null && dato.length < nodo.dato.length) {
+            temp = this.buscarPadre(dato,nodo.izq);
         }
 
-        return encontrado;
+        //Si existen nodos a la derecha
+        if (nodo.der != null && dato.length > nodo.dato.length) {
+            temp = this.buscarPadre(dato,nodo.der);
+        }
+
+        return temp;
     }
+
 }
