@@ -192,7 +192,7 @@ function buscarNodo() {
     console.log(arbol);
     console.log(raiz);
     var listado = document.getElementById("json-arbol");
-    listado.innerHTML = JSON.stringify(raiz, undefined, 4);
+    listado.innerHTML = JSON.stringify(arbol, undefined, 4);
     document.getElementById("buscar").value = "";
 }
 function eliminarNodo() {

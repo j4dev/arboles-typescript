@@ -225,7 +225,7 @@ function buscarNodo() {
     console.log(raiz);
     
     var listado = <HTMLElement> document.getElementById("json-arbol");
-    listado.innerHTML = JSON.stringify(raiz,undefined, 4);
+    listado.innerHTML = JSON.stringify(arbol,undefined, 4);
     (<HTMLInputElement>document.getElementById("buscar")).value = "";
 
 }
