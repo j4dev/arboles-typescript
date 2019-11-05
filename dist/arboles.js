@@ -112,11 +112,11 @@ class clsArbol {
             }
         }
         //Si existen nodos a la izquierda
-        if (nodo.izq != null && dato.length < nodo.dato.length) {
+        if (nodo.izq != null && dato.length <= nodo.dato.length) {
             temp = this.buscarPadre(dato, nodo.izq);
         }
         //Si existen nodos a la derecha
-        if (nodo.der != null && dato.length > nodo.dato.length) {
+        if (nodo.der != null && dato.length >= nodo.dato.length) {
             temp = this.buscarPadre(dato, nodo.der);
         }
         return temp;
@@ -181,7 +181,6 @@ function guardarArbol() {
         document.getElementById("insertar").value = "";
     }
     else {
-        console.log("jola");
         var listado = document.getElementById("json-arbol");
         listado.innerHTML = JSON.stringify("Elemento ya existente", undefined, 4);
         document.getElementById("insertar").value = "";

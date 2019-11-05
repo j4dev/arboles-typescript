@@ -92,6 +92,7 @@ class clsArbol {
         }
         // Cuando las dimensiones de los string es igual
 
+
         return nodo;
 
     }
@@ -139,12 +140,12 @@ class clsArbol {
         }
 
         //Si existen nodos a la izquierda
-        if (nodo.izq != null && dato.length < nodo.dato.length) {
+        if (nodo.izq != null && dato.length <= nodo.dato.length) {
             temp = this.buscarPadre(dato,nodo.izq);
         }
 
         //Si existen nodos a la derecha
-        if (nodo.der != null && dato.length > nodo.dato.length) {
+        if (nodo.der != null && dato.length >= nodo.dato.length) {
             temp = this.buscarPadre(dato,nodo.der);
         }
 
@@ -210,8 +211,6 @@ function guardarArbol() {
         listado.innerHTML = JSON.stringify(raiz,undefined, 4);
         (<HTMLInputElement>document.getElementById("insertar")).value = "";
     }else{
-        console.log("jola");
-        
         var listado = <HTMLElement> document.getElementById("json-arbol");
         listado.innerHTML = JSON.stringify("Elemento ya existente",undefined, 4);
         (<HTMLInputElement>document.getElementById("insertar")).value = "";
