@@ -206,13 +206,16 @@ var raiz:clsNodo = arbol.insertarNodo("raiz",null);
 function guardarLista() {
     var dato = (<HTMLInputElement>document.getElementById("insertar")).value.toString();
     arbol.insertarNodo(dato,raiz);
-    //arbol.listar();
+    console.log(arbol);
+    
 }
 function buscarNodo() {
     var nodoBuscado = (<HTMLInputElement>document.getElementById("buscar")).value.toString();
     arbol.buscarNodo(nodoBuscado,raiz);
+    console.log(arbol);
 }
 function eliminarNodo() {
     var nodoEliminado = (<HTMLInputElement>document.getElementById("borrar")).value.toString();
     arbol.eliminarNodo(raiz,nodoEliminado);
+    console.log(arbol);
 }
