@@ -36,7 +36,7 @@ class clsNodo {
 
 class clsArbol {
     private _raiz: clsArbol;
-    private _trabajo: clsArbol;
+    private _trabajo: clsNodo;
 
     private _i = 0;
 
@@ -47,10 +47,10 @@ class clsArbol {
         this._i = value;
     }
 
-    public get trabajo(): clsArbol {
+    public get trabajo(): clsNodo {
         return this._trabajo;
     }
-    public set trabajo(value: clsArbol) {
+    public set trabajo(value: clsNodo) {
         this._trabajo = value;
     }
     
@@ -96,9 +96,29 @@ class clsArbol {
     }
 
     /**
+     * buscarMinimo
+     */
+    public buscarMinimo(nodo: clsNodo) {
+        if (nodo == null) {
+            return null;
+        }
+        this.trabajo = nodo;
+
+        let minimo = this.trabajo.dato;
+
+        while (this.trabajo.izq != null) {
+            this.trabajo = this.trabajo.izq;
+            minimo = this.trabajo.dato;
+        }
+
+        return minimo;
+
+    }
+
+    /**
      * buscarPadre 
      */
-    public buscarPadre (dato:string, nodo: clsNodo) {
+    public buscarPadre (dato:string, nodo:clsNodo):clsNodo {
         let temp:clsNodo = null;
 
         if (nodo == null ) {
@@ -130,4 +150,69 @@ class clsArbol {
         return temp;
     }
 
+    /**
+     * eliminarNodo
+     */
+    public eliminarNodo(nodo:clsNodo, dato:string):clsNodo {
+        if (nodo == null) {
+            return null;
+        }
+        if (dato.length < nodo.dato.length) {
+            nodo.izq = this.eliminarNodo(nodo.izq,dato);
+            return nodo;
+        }else if (dato.length > nodo.dato.length) {
+                nodo.der = this.eliminarNodo(nodo.der,dato);
+                return nodo;
+            }else if (nodo.izq == null && nodo.der == null) {
+                    nodo = null;
+                    return nodo;
+                } else if (nodo.izq == null) {
+                        let padre:clsNodo = this.buscarPadre(dato,nodo);
+                        padre.der = nodo.der;
+                        return nodo;
+                    }else{
+                        let minimo = this.buscarMinimo(nodo.der);
+                        nodo.dato = minimo;
+                        nodo.der = this.eliminarNodo(nodo.der, dato);
+                        return nodo;
+                    }
+    }
+
+    /**
+     * buscarNodo
+     */
+    public buscarNodo(dato:string,nodo:clsNodo):clsNodo {
+        if (nodo != null) {
+            if (dato.length < nodo.dato.length) {
+                this.buscarNodo(dato,nodo.izq);
+                return nodo;
+            }else if(dato > nodo.dato){
+                this.buscarNodo(dato,nodo.der);
+                return nodo;
+            }
+        } else {
+            return null;
+        }
+    }
+        
+
+}
+
+var arbol = new clsArbol();
+var raiz:clsNodo = arbol.insertarNodo("raiz",null);
+/*function listar() {
+    arbol.listar();
+}*/
+function guardarLista() {
+    var dato = (<HTMLInputElement>document.getElementById("insertar")).value.toString();
+    arbol.insertarNodo(dato,raiz);
+    //arbol.listar();
+}
+function buscarNodo() {
+    var nodoBuscado = (<HTMLInputElement>document.getElementById("buscar")).value.toString();
+    arbol.buscarNodo(nodoBuscado,raiz);
+}
+function eliminarNodo() {
+    var nodoEliminado = (<HTMLInputElement>document.getElementById("borrar")).value.toString();
+    arbol.eliminarNodo(raiz,nodoEliminado);
 }

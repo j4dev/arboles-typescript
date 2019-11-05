@@ -76,6 +76,21 @@ class clsArbol {
         return nodo;
     }
     /**
+     * buscarMinimo
+     */
+    buscarMinimo(nodo) {
+        if (nodo == null) {
+            return null;
+        }
+        this.trabajo = nodo;
+        let minimo = this.trabajo.dato;
+        while (this.trabajo.izq != null) {
+            this.trabajo = this.trabajo.izq;
+            minimo = this.trabajo.dato;
+        }
+        return minimo;
+    }
+    /**
      * buscarPadre
      */
     buscarPadre(dato, nodo) {
@@ -104,5 +119,72 @@ class clsArbol {
         }
         return temp;
     }
+    /**
+     * eliminarNodo
+     */
+    eliminarNodo(nodo, dato) {
+        if (nodo == null) {
+            return null;
+        }
+        if (dato.length < nodo.dato.length) {
+            nodo.izq = this.eliminarNodo(nodo.izq, dato);
+            return nodo;
+        }
+        else if (dato.length > nodo.dato.length) {
+            nodo.der = this.eliminarNodo(nodo.der, dato);
+            return nodo;
+        }
+        else if (nodo.izq == null && nodo.der == null) {
+            nodo = null;
+            return nodo;
+        }
+        else if (nodo.izq == null) {
+            let padre = this.buscarPadre(dato, nodo);
+            padre.der = nodo.der;
+            return nodo;
+        }
+        else {
+            let minimo = this.buscarMinimo(nodo.der);
+            nodo.dato = minimo;
+            nodo.der = this.eliminarNodo(nodo.der, dato);
+            return nodo;
+        }
+    }
+    /**
+     * buscarNodo
+     */
+    buscarNodo(dato, nodo) {
+        if (nodo != null) {
+            if (dato.length < nodo.dato.length) {
+                this.buscarNodo(dato, nodo.izq);
+                return nodo;
+            }
+            else if (dato > nodo.dato) {
+                this.buscarNodo(dato, nodo.der);
+                return nodo;
+            }
+        }
+        else {
+            return null;
+        }
+    }
+}
+var arbol = new clsArbol();
+var raiz = arbol.insertarNodo("raiz", null);
+/*function listar() {
+    arbol.listar();
+}*/
+function guardarLista() {
+    var dato = document.getElementById("insertar").value.toString();
+    arbol.insertarNodo(dato, raiz);
+    //arbol.listar();
+}
+function buscarNodo() {
+    var nodoBuscado = document.getElementById("buscar").value.toString();
+    arbol.buscarNodo(nodoBuscado, raiz);
+}
+function eliminarNodo() {
+    var nodoEliminado = document.getElementById("borrar").value.toString();
+    arbol.eliminarNodo(raiz, nodoEliminado);
 }
 //# sourceMappingURL=arboles.js.map
