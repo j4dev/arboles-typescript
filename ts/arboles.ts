@@ -64,11 +64,11 @@ class clsArbol {
 
     /**
      * clsArbol
-     */
+     
     public clsArbol() {
         this._raiz = null;
     }
-
+*/
     /**
      * insertarNodo
      */
@@ -200,14 +200,17 @@ class clsArbol {
 
 var arbol = new clsArbol();
 var raiz:clsNodo = arbol.insertarNodo("raiz",null);
+/*var raiz1:clsNodo = arbol.insertarNodo("raiz2",raiz);
+var raiz2:clsNodo = arbol.insertarNodo("raiz3",raiz);*/
 /*function listar() {
     arbol.listar();
 }*/
-function guardarLista() {
+function guardarArbol() {
     var dato = (<HTMLInputElement>document.getElementById("insertar")).value.toString();
     arbol.insertarNodo(dato,raiz);
-    console.log(arbol);
-    
+    var listado = <HTMLElement> document.getElementById("listado");
+    listado.innerHTML = raiz;
+    (<HTMLInputElement>document.getElementById("borrar")).value = "";
 }
 function buscarNodo() {
     var nodoBuscado = (<HTMLInputElement>document.getElementById("buscar")).value.toString();
