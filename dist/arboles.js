@@ -172,26 +172,22 @@ class clsArbol {
 }
 var arbol = new clsArbol();
 var raiz = arbol.insertarNodo("raiz", null);
-/*var raiz1:clsNodo = arbol.insertarNodo("raiz2",raiz);
-var raiz2:clsNodo = arbol.insertarNodo("raiz3",raiz);*/
 /*function listar() {
     arbol.listar();
 }*/
 function guardarArbol() {
     var dato = document.getElementById("insertar").value.toString();
     arbol.insertarNodo(dato, raiz);
-    var listado = document.getElementById("listado");
-    listado.innerHTML = raiz;
-    document.getElementById("borrar").value = "";
+    console.log(raiz);
 }
 function buscarNodo() {
     var nodoBuscado = document.getElementById("buscar").value.toString();
     arbol.buscarNodo(nodoBuscado, raiz);
-    console.log(arbol);
+    console.log(raiz);
 }
 function eliminarNodo() {
     var nodoEliminado = document.getElementById("borrar").value.toString();
     arbol.eliminarNodo(raiz, nodoEliminado);
-    console.log(arbol);
+    console.log(raiz);
 }
 //# sourceMappingURL=arboles.js.map

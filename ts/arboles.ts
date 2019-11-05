@@ -200,25 +200,23 @@ class clsArbol {
 
 var arbol = new clsArbol();
 var raiz:clsNodo = arbol.insertarNodo("raiz",null);
-/*var raiz1:clsNodo = arbol.insertarNodo("raiz2",raiz);
-var raiz2:clsNodo = arbol.insertarNodo("raiz3",raiz);*/
+
 /*function listar() {
     arbol.listar();
 }*/
 function guardarArbol() {
     var dato = (<HTMLInputElement>document.getElementById("insertar")).value.toString();
     arbol.insertarNodo(dato,raiz);
-    var listado = <HTMLElement> document.getElementById("listado");
-    listado.innerHTML = raiz;
-    (<HTMLInputElement>document.getElementById("borrar")).value = "";
+    console.log(raiz);
+    
 }
 function buscarNodo() {
     var nodoBuscado = (<HTMLInputElement>document.getElementById("buscar")).value.toString();
     arbol.buscarNodo(nodoBuscado,raiz);
-    console.log(arbol);
+    console.log(raiz);
 }
 function eliminarNodo() {
     var nodoEliminado = (<HTMLInputElement>document.getElementById("borrar")).value.toString();
     arbol.eliminarNodo(raiz,nodoEliminado);
-    console.log(arbol);
+    console.log(raiz);
 }
